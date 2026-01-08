@@ -1,4 +1,4 @@
-[submodule "libfdt"]
+[submodule "libs/libfdt"]
 	path = libs/libfdt
 	url = git@github.com:dgibson/dtc.git
 	branch = main
