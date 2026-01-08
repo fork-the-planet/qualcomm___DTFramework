@@ -149,6 +149,66 @@ This library supports the following target platforms and architectures:
   - Hexagon SDK (for Q6 targets)
 - Device Tree Compiler (dtc) - for DTB file processing
 
+## Getting Started
+
+### Cloning the Repository
+
+This project uses Git submodules to manage external dependencies (such as the Device Tree Compiler). When cloning the repository, you need to initialize and update the submodules to download all required dependencies.
+
+#### Method 1: Clone with Submodules (Recommended)
+
+Clone the repository and automatically download all submodules in one command:
+
+```bash
+git clone --recurse-submodules https://github.com/qualcomm/DTFwk.git
+cd DTFwk
+```
+
+#### Method 2: Clone and Initialize Submodules Separately
+
+If you've already cloned the repository without submodules, or prefer to do it in separate steps:
+
+```bash
+# Clone the repository
+git clone https://github.com/qualcomm/DTFwk.git
+cd DTFwk
+
+# Initialize and update submodules
+git submodule update --init --recursive
+```
+
+### Submodule Management
+
+#### Updating Submodules
+
+To update submodules to their latest versions:
+
+```bash
+# Update all submodules to the latest commit on their tracked branch
+git submodule update --remote --recursive
+
+# Or update to the commit referenced by the main repository
+git submodule update --recursive
+```
+
+#### Checking Submodule Status
+
+To check the status of all submodules:
+
+```bash
+git submodule status
+```
+
+#### Working with Submodules
+
+The `fdt` submodule contains the Device Tree Compiler (dtc) and libfdt library:
+
+- **Location**: `fdt/` directory
+- **Repository**: https://github.com/dgibson/dtc
+- **Purpose**: Provides the underlying FDT (Flattened Device Tree) library that DTFwk extends
+
+**Note**: The submodule code is not stored in this repository. Git only stores a reference (commit hash) to the specific version of the external repository. When you clone or update submodules, Git fetches the actual code from the external repository.
+
 ## Integration Guide
 
 **IMPORTANT**: Only include header files (.h) in your code, never include source files (.c).
