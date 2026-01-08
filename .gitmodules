@@ -1,6 +1,0 @@
-[submodule "libfdt"]
-	path = libs/libfdt
-	url = git@github.com:dgibson/dtc.git
-[submodule "libs/libfdt"]
-	path = libs/libfdt
-	url = git@github.com:dgibson/dtc.git
