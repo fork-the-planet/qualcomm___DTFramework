@@ -1,13 +1,13 @@
-# DTFwk - Device Tree Framework
+# DTFramework - Device Tree Framework
 
-Extended Device Tree Blob (DTB) library and DT Selection library for Qualcomm platforms, built on top of FdtLib (edk2).
+Extended Device Tree Blob (DTB) library and DT Selection library for Qualcomm platforms, built on top of libfdt.
 
 This project provides enhanced DTB manipulation capabilities and device tree selection functionality for Qualcomm platforms, supporting device tree creation, parsing, modification, property operations, node management, overlay merging, and intelligent DTB/DTBO selection. It runs on Qualcomm® Snapdragon™ processor platforms.
 
 ## Project Structure
 
 ```
-DTFwk/
+DTFramework/
 ├── libs/                          # Library implementations
 │   ├── DTBExtnLib/                # Extended DTB library
 │   │   ├── create-dtb-apis.h      # DTB creation API header
@@ -19,14 +19,16 @@ DTFwk/
 │   │   ├── DTBExtnLib_node.c      # Node operation functions
 │   │   ├── DTBExtnLib_overlay.c   # Overlay merge functions
 │   │   └── DTBExtnLib_prop.c      # Property operation functions
-│   └── DTSelectLib/               # DT Selection library
-│       ├── dt_select_internal.h   # Internal definitions
-│       ├── dt_select.c            # DT selection algorithm
-│       ├── get_dt.c               # Wrapper APIs for DT selection
-│       └── Environment/           # Environment-specific implementations
-│           ├── dt_select_env.h    # Environment configuration
-│           ├── dt_select_env.c    # Environment wrapper functions
-│           └── README.txt         # Library documentation
+│   ├── DTSelectLib/               # DT Selection library
+│   │   ├── dt_select_internal.h   # Internal definitions
+│   │   ├── dt_select.c            # DT selection algorithm
+│   │   ├── get_dt.c               # Wrapper APIs for DT selection
+│   │   └── Environment/           # Environment-specific implementations
+│   │       ├── dt_select_env.h    # Environment configuration
+│   │       ├── dt_select_env.c    # Environment wrapper functions
+│   │       └── README.txt         # Library documentation
+│   └── libfdt/                    # libfdt library (Git submodule)
+│       └── [pylibfdt source]      # From https://github.com/devicetree-org/pylibfdt.git
 ├── inc/                           # Public API headers
 │   ├── DTBExtnLib.h               # DTB extension library API
 │   ├── dt_select.h                # DT selection library API
@@ -37,6 +39,7 @@ DTFwk/
 │   └── *.yaml                     # YAML configuration files
 ├── Tools/                         # Utility tools
 │   └── parse_dtb_log_script.py    # DTB log parsing script
+├── .gitmodules                    # Git submodule configuration
 ├── CODE-OF-CONDUCT.md             # Code of Conduct
 ├── CONTRIBUTING.md                # Contribution guidelines
 ├── LICENSE.txt                    # BSD-3-Clause License
@@ -153,61 +156,24 @@ This library supports the following target platforms and architectures:
 
 ### Cloning the Repository
 
-This project uses Git submodules to manage external dependencies (such as the Device Tree Compiler). When cloning the repository, you need to initialize and update the submodules to download all required dependencies.
-
-#### Method 1: Clone with Submodules (Recommended)
-
-Clone the repository and automatically download all submodules in one command:
+This project uses Git submodules to manage the libfdt dependency. Clone the repository with submodules:
 
 ```bash
-git clone --recurse-submodules https://github.com/qualcomm/DTFwk.git
-cd DTFwk
+git clone --recurse-submodules https://github.com/qualcomm/DTFramework.git
+cd DTFramework
 ```
 
-#### Method 2: Clone and Initialize Submodules Separately
-
-If you've already cloned the repository without submodules, or prefer to do it in separate steps:
+If you've already cloned the repository without submodules, initialize them:
 
 ```bash
-# Clone the repository
-git clone https://github.com/qualcomm/DTFwk.git
-cd DTFwk
-
-# Initialize and update submodules
 git submodule update --init --recursive
 ```
 
-### Submodule Management
+### Dependencies
 
-#### Updating Submodules
-
-To update submodules to their latest versions:
-
-```bash
-# Update all submodules to the latest commit on their tracked branch
-git submodule update --remote --recursive
-
-# Or update to the commit referenced by the main repository
-git submodule update --recursive
-```
-
-#### Checking Submodule Status
-
-To check the status of all submodules:
-
-```bash
-git submodule status
-```
-
-#### Working with Submodules
-
-The `fdt` submodule contains the Device Tree Compiler (dtc) and libfdt library:
-
-- **Location**: `fdt/` directory
-- **Repository**: https://github.com/dgibson/dtc
-- **Purpose**: Provides the underlying FDT (Flattened Device Tree) library that DTFwk extends
-
-**Note**: The submodule code is not stored in this repository. Git only stores a reference (commit hash) to the specific version of the external repository. When you clone or update submodules, Git fetches the actual code from the external repository.
+The `libs/libfdt/` directory is a Git submodule that references the pylibfdt project:
+- **Repository**: https://github.com/devicetree-org/pylibfdt.git
+- **Purpose**: Provides the underlying libfdt library for device tree manipulation
 
 ## Integration Guide
 
@@ -522,7 +488,7 @@ The `Settings/` directory is designed to store device tree source files and conf
 - **DTSI Files (*.dtsi)**: Device tree source include files that can be shared across multiple DTS files
 - **YAML Files (*.yaml)**: YAML configuration files for device tree generation or validation
 
-These files can be compiled into DTB (Device Tree Blob) files using the Device Tree Compiler (dtc) and then processed by DTFwk libraries.
+These files can be compiled into DTB (Device Tree Blob) files using the Device Tree Compiler (dtc) and then processed by DTFramework libraries.
 
 ## Tools
 
@@ -543,11 +509,11 @@ For reporting security vulnerabilities, please see [SECURITY.md](SECURITY.md). Y
 
 ## License
 
-DTFwk is licensed under the [BSD-3-Clause License](https://spdx.org/licenses/BSD-3-Clause.html). See [LICENSE.txt](LICENSE.txt) for the full license text.
+DTFramework is licensed under the [BSD-3-Clause License](https://spdx.org/licenses/BSD-3-Clause.html). See [LICENSE.txt](LICENSE.txt) for the full license text.
 
 ## Acknowledgments
 
-This project is built as an extension of EDK2's FdtLib. We thank all contributors who have helped make this project better.
+This project is built on top of libfdt from the pylibfdt project. We thank all contributors who have helped make this project better.
 
 ### Related Projects
 
