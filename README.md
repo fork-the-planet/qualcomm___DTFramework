@@ -33,11 +33,11 @@ DTFramework/
 │   ├── DTBExtnLib.h               # DTB extension library API
 │   ├── dt_select.h                # DT selection library API
 │   └── get_dt.h                   # DT selection wrapper API
-├── Settings/                      # Device tree source files
+├── settings/                      # Device tree source files
 │   ├── *.dts                      # Device tree source files
 │   ├── *.dtsi                     # Device tree source include files
 │   └── *.yaml                     # YAML configuration files
-├── Tools/                         # Utility tools
+├── tools/                         # Utility tools
 │   └── parse_dtb_log_script.py    # DTB log parsing script
 ├── .gitmodules                    # Git submodule configuration
 ├── CODE-OF-CONDUCT.md             # Code of Conduct
@@ -480,9 +480,9 @@ The library uses standard FDT error codes and extends them with the following Qu
 - `GET_DT_ERR_SIZE_OVERFLOW` (5) - Size overflow
 - `GET_DT_ERR_INVALID_BASE_DTB_PTR` (6) - Invalid base DTB pointer
 
-## Settings Directory
+## settings Directory
 
-The `Settings/` directory is designed to store device tree source files and configuration files:
+The `settings/` directory is designed to store device tree source files and configuration files:
 
 - **DTS Files (*.dts)**: Device tree source files that describe hardware configurations
 - **DTSI Files (*.dtsi)**: Device tree source include files that can be shared across multiple DTS files
@@ -490,7 +490,7 @@ The `Settings/` directory is designed to store device tree source files and conf
 
 These files can be compiled into DTB (Device Tree Blob) files using the Device Tree Compiler (dtc) and then processed by DTFramework libraries.
 
-## Tools
+## tools Directory
 
 ### parse_dtb_log_script.py
 
